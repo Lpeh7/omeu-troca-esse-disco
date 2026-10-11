@@ -1,6 +1,6 @@
 # Dicionário de Dados
 
-- **Banco:** `troca_esse_disco`
+- **Banco:** `omeu-troca_esse_disco`
 - **SGBD:** MySQL 8.0.16 ou superior (motor InnoDB)
 - **Codificação:** utf8mb4
 - Todos os dados de exemplo são **fictícios**.
