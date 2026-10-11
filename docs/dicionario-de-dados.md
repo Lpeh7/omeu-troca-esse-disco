@@ -71,3 +71,34 @@ Troca concluída: um cliente entrega um exemplar e leva outro.
 | data_troca | Data da troca | DATE | Não | — | Data válida | 2025-04-02 |
 
 O valor final da troca não é coluna: é calculado nas consultas (RN08).
+
+## Justificativas de tipos e restrições
+
+### Identificadores
+Usei `INT` com `AUTO_INCREMENT` nas chaves primárias simples. A coluna `musica.id_cd` não é auto incrementada porque herda o valor do `cd` a que a faixa pertence. Os tipos das colunas FK são idênticos aos das PKs que elas referenciam, o que o MySQL exige.
+
+### Texto
+`VARCHAR` com tamanho estimado para nomes, títulos, gravadora e e-mail. A biografia usa `TEXT`, porque não há limite razoável de tamanho. Todo o banco usa utf8mb4 para aceitar acentos (RNF03).
+
+### Valores financeiros e percentuais
+`preco_base` e `desconto_percentual` usam `DECIMAL`, que guarda valores exatos. Tipos de ponto flutuante (`FLOAT`, `DOUBLE`) são aproximados e podem gerar erros de centavos nos cálculos de desconto (RN08). `DECIMAL(10,2)` comporta preços de até 99.999.999,99, e `DECIMAL(5,2)` comporta percentuais com duas casas.
+
+### Datas
+`DATE`, porque o negócio só precisa do dia (lançamento, entrada do exemplar e troca), sem hora.
+
+### Duração das músicas
+Inteiro em segundos (`SMALLINT UNSIGNED`, até 65.535 s). Facilita somas e médias, e a conversão para minutos:segundos é feita apenas na exibição, nas consultas.
+
+### Valores permitidos (conservação, status e desconto)
+- `conservacao` e `status` usam `VARCHAR` com `CHECK ... IN (...)`, que o MySQL só aplica a partir da 8.0.16 (RNF01). Os valores não levam acento (`OTIMO`) para coincidir com as regras RN04 e RN07.
+- `desconto_percentual` só é limitado ao intervalo de 0 a 100. A coerência entre o desconto e a conservação do exemplar entregue (RN07) será verificada por consultas de auditoria (Issue 09), e não por restrição no banco.
+
+### Nulabilidade
+Todas as colunas são `NOT NULL`, porque o negócio exige essas informações. A exceção é `cantor.biografia`, que pode não existir para um artista.
+
+### Regras da troca (RN06)
+- As duas colunas de exemplar em `troca` são `UNIQUE`, para que o mesmo exemplar não ocupe duas vezes o mesmo papel.
+- Os dois exemplares da mesma troca devem ser diferentes. Isso será garantido por um `CHECK (id_exemplar_entregue <> id_exemplar_adquirido)` no DDL.
+
+### Integridade referencial
+As chaves estrangeiras usam o comportamento padrão (`RESTRICT`): não é possível apagar um registro "pai" que tenha registros "filhos" ligados a ele.
