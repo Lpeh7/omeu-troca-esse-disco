@@ -44,9 +44,9 @@ Cada entidade do MER virou uma tabela e cada atributo virou uma coluna, com os n
 - Os relacionamentos deixaram de ser losangos e passaram a ser **colunas FK**.
 - O atributo derivado `valor_final` continua fora do modelo: será calculado nas consultas (RN08).
 
-## Restrições previstas para o DDL
-Algumas regras não aparecem no diagrama e serão implementadas no DDL (Issue 05):
+## Restrições implementadas no DDL”
+Algumas regras não aparecem no diagrama e foram implementadas no DDL (Issue 05):
 - `cliente.email` único (RN05);
 - `troca.id_exemplar_entregue` e `troca.id_exemplar_adquirido` únicos, e diferentes entre si (RN06);
-- valores permitidos para conservação, status e desconto (RN04 e RN07);
+- valores permitidos para conservação e status (RN04) e limite de 0 a 100 para o desconto (a coerência do desconto com a RN07 é verificada por consulta de auditoria);
 - preço e duração positivos.
