@@ -45,3 +45,30 @@ O desconto incide **sobre o preço-base do exemplar adquirido**, e não sobre o 
 O cliente entrega um CD em conservação **OTIMO** (15%) e leva um exemplar cujo preço-base é **R$ 50,00**:
 
 `valor_final = ROUND(50,00 * (1 - 15 / 100), 2) = R$ 42,50`
+
+
+## Como cada regra é aplicada no banco
+
+| Regra | Aplicação | Restrições no DDL |
+|---|---|---|
+| RN01 | Garantida | Tabelas `cd` e `exemplar` separadas; nada exige que um CD tenha exemplares |
+| RN02 | Garantida | `pk_musica` (id_cd, numero_musica) |
+| RN03 | Garantida | `musica.id_cantor` NOT NULL e `fk_musica_cantor` |
+| RN04 | Garantida | `ck_exemplar_conservacao`, `ck_exemplar_status`, `fk_exemplar_cd` |
+| RN05 | Garantida | `uq_cliente_email`, `fk_troca_cliente` |
+| RN06 | Garantida | `ck_troca_exemplares_distintos`, `uq_troca_entregue`, `uq_troca_adquirido` e as duas FKs para `exemplar` |
+| RN07 | **Parcial** | O banco limita o desconto ao intervalo de 0 a 100 (`ck_troca_desconto`). A coerência entre o percentual e a conservação do exemplar entregue é verificada por consulta de auditoria (`database/dql/validacoes.sql`) |
+| RN08 | Por consulta | `valor_final` não é coluna: é calculado nas consultas |
+| RN09 | **Auditada** | Depende dos dados da carga. É verificada por consulta de auditoria (status incoerente) |
+| RN10 | Garantida | Não há tabelas de caixa, pagamento ou interface |
+
+Uma restrição `CHECK` do MySQL só avalia valores da própria linha e não consulta outras tabelas. Por isso RN07 e RN09, que dependem de dados de `exemplar`, são auditadas depois da carga em vez de bloqueadas na inserção.
+
+## Decisões adicionais do projeto
+Itens que não constam do enunciado e foram adotados com base no RNF02 (restrições relevantes):
+- `preco_base` maior que zero, `tempo_segundos` maior que zero e `numero_musica` maior ou igual a 1.
+- `desconto_percentual` entre 0 e 100.
+- `cantor.biografia` é a única coluna que aceita NULL; todas as outras são obrigatórias.
+- As chaves estrangeiras usam `ON DELETE RESTRICT` e `ON UPDATE RESTRICT`: não é possível apagar um registro que ainda tenha registros ligados a ele.
+- O e-mail único não diferencia maiúsculas de minúsculas (collation `utf8mb4_unicode_ci`).
+- No MER, todo CD tem ao menos uma música (CD 1-N em "contém"). Essa é uma decisão de modelagem **não imposta pelo banco**.
