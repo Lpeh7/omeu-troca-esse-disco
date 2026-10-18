@@ -57,3 +57,62 @@ FROM musica
 WHERE tempo_segundos > 300
 ORDER BY tempo_segundos DESC;
 
+-- ---------------------------------------------------------------------
+-- Q06 — Para cada faixa: nome do CD, número da faixa e título da música.
+-- Conceitos: JOIN (musica <-> cd)
+-- ---------------------------------------------------------------------
+SELECT c.nome AS cd,
+       m.numero_musica AS faixa,
+       m.titulo AS musica
+FROM musica m
+JOIN cd c ON c.id_cd = m.id_cd
+ORDER BY c.nome, m.numero_musica;
+
+-- ---------------------------------------------------------------------
+-- Q07 — Para cada música: título e nome do intérprete (cantor).
+-- Conceitos: JOIN (musica <-> cantor)
+-- ---------------------------------------------------------------------
+SELECT a.nome AS interprete,
+       m.titulo AS musica
+FROM musica m
+JOIN cantor a ON a.id_cantor = m.id_cantor
+ORDER BY a.nome, m.titulo;
+
+-- ---------------------------------------------------------------------
+-- Q08 — Exemplares DISPONÍVEIS com nome do CD, conservação e preço-base,
+--       do mais caro para o mais barato.
+-- Conceitos: JOIN (exemplar <-> cd), WHERE
+-- ---------------------------------------------------------------------
+SELECT c.nome AS cd,
+       e.conservacao,
+       e.preco_base,
+       e.data_entrada
+FROM exemplar e
+JOIN cd c ON c.id_cd = e.id_cd
+WHERE e.status = 'DISPONIVEL'
+ORDER BY e.preco_base DESC;
+
+-- ---------------------------------------------------------------------
+-- Q09 — Cada faixa com nome do CD, número da faixa, título e intérprete.
+-- Conceitos: JOIN encadeado (musica <-> cd <-> cantor)
+-- ---------------------------------------------------------------------
+SELECT c.nome AS cd,
+       m.numero_musica AS faixa,
+       m.titulo AS musica,
+       a.nome AS interprete
+FROM musica m
+JOIN cd c    ON c.id_cd     = m.id_cd
+JOIN cantor a ON a.id_cantor = m.id_cantor
+ORDER BY c.nome, m.numero_musica;
+
+-- ---------------------------------------------------------------------
+-- Q10 — Trocas realizadas com nome do cliente e data, em ordem cronológica.
+-- Conceitos: JOIN (troca <-> cliente), ORDER BY
+-- ---------------------------------------------------------------------
+SELECT t.id_troca,
+       cl.nome AS cliente,
+       t.data_troca,
+       t.desconto_percentual
+FROM troca t
+JOIN cliente cl ON cl.id_cliente = t.id_cliente
+ORDER BY t.data_troca;
