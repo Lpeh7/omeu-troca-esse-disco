@@ -1,0 +1,77 @@
+-- =====================================================================
+-- Carga 01 — tabela cantor (64 linhas)
+-- Projeto: Ô, Meu! Troca Esse Disco
+-- DADOS 100% FICTÍCIOS, gerados para este projeto (qualquer semelhança com
+-- pessoas, bandas, gravadoras ou e-mails reais é mera coincidência).
+-- Ordem de carga: 01 cantores -> 02 cds -> 03 musicas -> 04 clientes
+--                 -> 05 exemplares -> 06 trocas   (rodar UMA vez, após o DDL)
+-- =====================================================================
+USE omeu_troca_esse_disco;
+SET NAMES utf8mb4;
+
+INSERT INTO cantor (id_cantor, nome, biografia, genero_principal) VALUES
+  (1, 'Os Vagalumes de Vidro', 'Os Vagalumes de Vidro surgiu em Porto Alegre em 2014 e ficou conhecido por misturar metais com sanfona. Mantém uma base fiel de ouvintes desde os primeiros lançamentos.', 'Rock'),
+  (2, 'Banda Cobre Azul', 'Banda Cobre Azul surgiu em Santos em 1993 e ficou conhecido por misturar metais com violões de nylon. Gravou o primeiro disco de forma independente.', 'Rock'),
+  (3, 'Quarteto Maré Alta', 'Quarteto Maré Alta surgiu em Ribeirão Preto em 1992 e ficou conhecido por misturar contrabaixo acústico com guitarras limpas. Mantém uma base fiel de ouvintes desde os primeiros lançamentos.', 'Jazz'),
+  (4, 'Orquestra Sétima Rua', 'Orquestra Sétima Rua surgiu em Niterói em 1982 e ficou conhecido por misturar violões de nylon com vozes em coro. Gravou o primeiro disco de forma independente.', 'Jazz'),
+  (5, 'Trio Terra Molhada', NULL, 'Forró'),
+  (6, 'Ventania Elétrica', 'Ventania Elétrica surgiu em Goiânia em 1982 e ficou conhecido por misturar sanfona com violões de nylon. Costuma se apresentar em pequenas casas de show do centro da cidade.', 'Eletrônica'),
+  (7, 'Coletivo Praça Nova', 'Coletivo Praça Nova surgiu em Belém em 1983 e ficou conhecido por misturar contrabaixo acústico com batidas eletrônicas. Mantém uma base fiel de ouvintes desde os primeiros lançamentos.', 'MPB'),
+  (8, 'Os Girassóis de Aço', 'Os Girassóis de Aço surgiu em Goiânia em 1980 e ficou conhecido por misturar sintetizadores antigos com sanfona. Gravou o primeiro disco de forma independente.', 'Rock'),
+  (9, 'Sociedade do Samba Sereno', 'Sociedade do Samba Sereno surgiu em Porto Alegre em 1984 e ficou conhecido por misturar contrabaixo acústico com batidas eletrônicas. Gravou o primeiro disco de forma independente.', 'Samba'),
+  (10, 'Conjunto Meia-Lua', 'Conjunto Meia-Lua surgiu em Florianópolis em 2007 e ficou conhecido por misturar sanfona com guitarras limpas. Participou de diversas coletâneas ao longo da carreira.', 'Choro'),
+  (11, 'Neblina Tropical', 'Neblina Tropical surgiu em Fortaleza em 2010 e ficou conhecido por misturar cordas com sanfona. Costuma se apresentar em pequenas casas de show do centro da cidade.', 'Pop'),
+  (12, 'Companhia do Compasso', 'Companhia do Compasso surgiu em Santos em 2009 e ficou conhecido por misturar contrabaixo acústico com guitarras limpas. Costuma se apresentar em pequenas casas de show do centro da cidade.', 'Samba'),
+  (13, 'Rádio Calçada', 'Rádio Calçada surgiu em Florianópolis em 1979 e ficou conhecido por misturar metais com sanfona. Gravou o primeiro disco de forma independente.', 'Pop'),
+  (14, 'Os Pardais do Viaduto', 'Os Pardais do Viaduto surgiu em Porto Alegre em 2003 e ficou conhecido por misturar guitarras limpas com batidas eletrônicas. Gravou o primeiro disco de forma independente.', 'Folk'),
+  (15, 'Banda Café Frio', 'Banda Café Frio surgiu em Belo Horizonte em 2001 e ficou conhecido por misturar vozes em coro com guitarras limpas. Gravou o primeiro disco de forma independente.', 'Blues'),
+  (16, 'Trio Madrugada', 'Trio Madrugada surgiu em Belém em 2015 e ficou conhecido por misturar violões de nylon com contrabaixo acústico. Costuma se apresentar em pequenas casas de show do centro da cidade.', 'Bossa Nova'),
+  (17, 'Fanfarra do Largo', 'Fanfarra do Largo surgiu em Goiânia em 1987 e ficou conhecido por misturar guitarras limpas com sanfona. Mantém uma base fiel de ouvintes desde os primeiros lançamentos.', 'Funk'),
+  (18, 'Bloco da Esquina Seca', 'Bloco da Esquina Seca surgiu em Campinas em 2011 e ficou conhecido por misturar sintetizadores antigos com contrabaixo acústico. Costuma se apresentar em pequenas casas de show do centro da cidade.', 'Samba'),
+  (19, 'Sexteto Lanterna', 'Sexteto Lanterna surgiu em Curitiba em 2010 e ficou conhecido por misturar cordas com metais. Mantém uma base fiel de ouvintes desde os primeiros lançamentos.', 'Jazz'),
+  (20, 'Os Lobos de Papel', 'Os Lobos de Papel surgiu em Fortaleza em 2006 e ficou conhecido por misturar guitarras limpas com sanfona. Ficou conhecido pelas letras sobre o cotidiano urbano.', 'Rock'),
+  (21, 'Maré Vermelha', 'Maré Vermelha surgiu em São Paulo em 2002 e ficou conhecido por misturar vozes em coro com sintetizadores antigos. Gravou o primeiro disco de forma independente.', 'Reggae'),
+  (22, 'Cais do Norte', NULL, 'Reggae'),
+  (23, 'Banda Fio de Prata', 'Banda Fio de Prata surgiu em Santos em 1992 e ficou conhecido por misturar guitarras limpas com batidas eletrônicas. Mantém uma base fiel de ouvintes desde os primeiros lançamentos.', 'MPB'),
+  (24, 'Os Cometas Domingueiros', 'Os Cometas Domingueiros surgiu em Ribeirão Preto em 2013 e ficou conhecido por misturar sintetizadores antigos com metais. Ficou conhecido pelas letras sobre o cotidiano urbano.', 'Forró'),
+  (25, 'Clube da Chuva Fina', 'Clube da Chuva Fina surgiu em Curitiba em 1980 e ficou conhecido por misturar vozes em coro com sanfona. Participou de diversas coletâneas ao longo da carreira.', 'Folk'),
+  (26, 'Orquestra de Bolso', NULL, 'Eletrônica'),
+  (27, 'Trio Sol de Inverno', 'Trio Sol de Inverno surgiu em Niterói em 2004 e ficou conhecido por misturar cordas com sanfona. Costuma se apresentar em pequenas casas de show do centro da cidade.', 'Bossa Nova'),
+  (28, 'Os Relógios Quebrados', 'Os Relógios Quebrados surgiu em Belém em 2000 e ficou conhecido por misturar violões de nylon com sanfona. Participou de diversas coletâneas ao longo da carreira.', 'Blues'),
+  (29, 'Estação Neon', 'Estação Neon surgiu em Salvador em 1987 e ficou conhecido por misturar metais com violões de nylon. Participou de diversas coletâneas ao longo da carreira.', 'Eletrônica'),
+  (30, 'Quinteto Vitrola', NULL, 'Choro'),
+  (31, 'Marina Solaris', 'Marina Solaris surgiu em Salvador em 1987 e ficou conhecido por misturar metais com contrabaixo acústico. Gravou o primeiro disco de forma independente.', 'MPB'),
+  (32, 'Tiago Valdivia', 'Tiago Valdivia surgiu em Goiânia em 2015 e ficou conhecido por misturar batidas eletrônicas com contrabaixo acústico. Participou de diversas coletâneas ao longo da carreira.', 'Pop'),
+  (33, 'Alícia Montenegra', NULL, 'Bossa Nova'),
+  (34, 'Rafael Quintanilha', 'Rafael Quintanilha surgiu em Recife em 1995 e ficou conhecido por misturar contrabaixo acústico com contrabaixo acústico. Ficou conhecido pelas letras sobre o cotidiano urbano.', 'Rock'),
+  (35, 'Dora Esmeralda', NULL, 'Soul'),
+  (36, 'Zé do Cais', 'Zé do Cais surgiu em Ribeirão Preto em 2002 e ficou conhecido por misturar percussão de rua com cordas. Ficou conhecido pelas letras sobre o cotidiano urbano.', 'Samba'),
+  (37, 'Maju Ventura', 'Maju Ventura surgiu em Belém em 2013 e ficou conhecido por misturar contrabaixo acústico com cordas. Costuma se apresentar em pequenas casas de show do centro da cidade.', 'Pop'),
+  (38, 'Nina Bonfim', 'Nina Bonfim surgiu em Santos em 2014 e ficou conhecido por misturar metais com contrabaixo acústico. Mantém uma base fiel de ouvintes desde os primeiros lançamentos.', 'Soul'),
+  (39, 'Caio Serrano', 'Caio Serrano surgiu em Belo Horizonte em 1996 e ficou conhecido por misturar batidas eletrônicas com sanfona. Ficou conhecido pelas letras sobre o cotidiano urbano.', 'Blues'),
+  (40, 'Irene Pavão', 'Irene Pavão surgiu em Florianópolis em 1981 e ficou conhecido por misturar vozes em coro com guitarras limpas. Costuma se apresentar em pequenas casas de show do centro da cidade.', 'Jazz'),
+  (41, 'Bruno Salgueiro', 'Bruno Salgueiro surgiu em Goiânia em 1986 e ficou conhecido por misturar guitarras limpas com contrabaixo acústico. Ficou conhecido pelas letras sobre o cotidiano urbano.', 'Funk'),
+  (42, 'Lívia Marés', 'Lívia Marés surgiu em São Paulo em 2003 e ficou conhecido por misturar batidas eletrônicas com metais. Ficou conhecido pelas letras sobre o cotidiano urbano.', 'MPB'),
+  (43, 'Otávio Brumado', 'Otávio Brumado surgiu em Porto Alegre em 1998 e ficou conhecido por misturar percussão de rua com vozes em coro. Gravou o primeiro disco de forma independente.', 'Forró'),
+  (44, 'Clara Anselmo', 'Clara Anselmo surgiu em Porto Alegre em 2013 e ficou conhecido por misturar sanfona com batidas eletrônicas. Costuma se apresentar em pequenas casas de show do centro da cidade.', 'Folk'),
+  (45, 'Heitor Camará', 'Heitor Camará surgiu em Recife em 2010 e ficou conhecido por misturar contrabaixo acústico com batidas eletrônicas. Gravou o primeiro disco de forma independente.', 'Choro'),
+  (46, 'Sônia Lacerda', 'Sônia Lacerda surgiu em Ribeirão Preto em 1983 e ficou conhecido por misturar batidas eletrônicas com contrabaixo acústico. Mantém uma base fiel de ouvintes desde os primeiros lançamentos.', 'Bossa Nova'),
+  (47, 'Vicente Aurora', 'Vicente Aurora surgiu em Florianópolis em 1995 e ficou conhecido por misturar percussão de rua com metais. Gravou o primeiro disco de forma independente.', 'Reggae'),
+  (48, 'Mirela Fontes', 'Mirela Fontes surgiu em Curitiba em 2016 e ficou conhecido por misturar cordas com cordas. Mantém uma base fiel de ouvintes desde os primeiros lançamentos.', 'Pop'),
+  (49, 'Davi Louzada', 'Davi Louzada surgiu em Recife em 1987 e ficou conhecido por misturar guitarras limpas com sanfona. Participou de diversas coletâneas ao longo da carreira.', 'Rock'),
+  (50, 'Paula Serafim', NULL, 'Soul'),
+  (51, 'Nelson Veiga', 'Nelson Veiga surgiu em Florianópolis em 1989 e ficou conhecido por misturar sanfona com metais. Mantém uma base fiel de ouvintes desde os primeiros lançamentos.', 'Samba'),
+  (52, 'Gabi Tamarindo', 'Gabi Tamarindo surgiu em Recife em 2014 e ficou conhecido por misturar batidas eletrônicas com vozes em coro. Gravou o primeiro disco de forma independente.', 'Funk'),
+  (53, 'Ronaldo Cipriano', 'Ronaldo Cipriano surgiu em São Paulo em 2009 e ficou conhecido por misturar batidas eletrônicas com violões de nylon. Ficou conhecido pelas letras sobre o cotidiano urbano.', 'Forró'),
+  (54, 'Teresa Almada', 'Teresa Almada surgiu em Goiânia em 2010 e ficou conhecido por misturar metais com violões de nylon. Ficou conhecido pelas letras sobre o cotidiano urbano.', 'Jazz'),
+  (55, 'Fábio Lorena', 'Fábio Lorena surgiu em Ribeirão Preto em 1997 e ficou conhecido por misturar guitarras limpas com violões de nylon. Mantém uma base fiel de ouvintes desde os primeiros lançamentos.', 'Eletrônica'),
+  (56, 'Jussara Boaventura', NULL, 'MPB'),
+  (57, 'Dália Rochedo', 'Dália Rochedo surgiu em Belo Horizonte em 1984 e ficou conhecido por misturar vozes em coro com cordas. Gravou o primeiro disco de forma independente.', 'Folk'),
+  (58, 'Mateus Pelicano', 'Mateus Pelicano surgiu em Fortaleza em 2014 e ficou conhecido por misturar guitarras limpas com metais. Ficou conhecido pelas letras sobre o cotidiano urbano.', 'Rock'),
+  (59, 'Elisa Cantuária', 'Elisa Cantuária surgiu em Campinas em 1987 e ficou conhecido por misturar percussão de rua com sintetizadores antigos. Mantém uma base fiel de ouvintes desde os primeiros lançamentos.', 'Bossa Nova'),
+  (60, 'Orlando Tavares', 'Orlando Tavares surgiu em Goiânia em 1981 e ficou conhecido por misturar metais com metais. Gravou o primeiro disco de forma independente.', 'Blues'),
+  (61, 'Rute Mirandela', 'Rute Mirandela surgiu em Campinas em 2002 e ficou conhecido por misturar contrabaixo acústico com batidas eletrônicas. Costuma se apresentar em pequenas casas de show do centro da cidade.', 'Choro'),
+  (62, 'Hugo Sampaio', 'Hugo Sampaio surgiu em Porto Alegre em 1987 e ficou conhecido por misturar sanfona com vozes em coro. Gravou o primeiro disco de forma independente.', 'Eletrônica'),
+  (63, 'Lara Pinheiral', 'Lara Pinheiral surgiu em Florianópolis em 1989 e ficou conhecido por misturar guitarras limpas com cordas. Gravou o primeiro disco de forma independente.', 'Reggae'),
+  (64, 'Sérgio Nogueira', 'Sérgio Nogueira surgiu em Santos em 2011 e ficou conhecido por misturar sintetizadores antigos com guitarras limpas. Gravou o primeiro disco de forma independente.', 'Samba');
+
