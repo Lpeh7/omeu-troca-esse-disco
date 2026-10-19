@@ -164,3 +164,51 @@ FROM musica
 GROUP BY genero
 HAVING AVG(tempo_segundos) > 235
 ORDER BY media_segundos DESC;
+
+-- ---------------------------------------------------------------------
+-- Q15 — Quantos CDs cada gravadora publicou, só gravadoras com mais de 40 CDs.
+-- Conceitos: COUNT, GROUP BY, HAVING
+-- ---------------------------------------------------------------------
+SELECT gravadora,
+       COUNT(*) AS quantidade_cds
+FROM cd
+GROUP BY gravadora
+HAVING COUNT(*) > 40
+ORDER BY quantidade_cds DESC, gravadora;
+
+-- ---------------------------------------------------------------------
+-- Q16 — Soma do preço-base dos exemplares DISPONÍVEIS por conservação.
+-- Conceitos: SUM, GROUP BY, WHERE
+-- ---------------------------------------------------------------------
+SELECT conservacao,
+       COUNT(*) AS exemplares,
+       SUM(preco_base) AS valor_total
+FROM exemplar
+WHERE status = 'DISPONIVEL'
+GROUP BY conservacao
+ORDER BY FIELD(conservacao, 'REGULAR', 'BOM', 'OTIMO', 'NOVO');
+
+-- ---------------------------------------------------------------------
+-- Q17 — Quantas trocas cada cliente fez, só clientes com 2 ou mais trocas.
+-- Conceitos: JOIN, COUNT, GROUP BY, HAVING
+-- ---------------------------------------------------------------------
+SELECT cl.nome AS cliente,
+       COUNT(*) AS quantidade_trocas
+FROM troca t
+JOIN cliente cl ON cl.id_cliente = t.id_cliente
+GROUP BY cl.id_cliente, cl.nome
+HAVING COUNT(*) >= 2
+ORDER BY quantidade_trocas DESC, cl.nome;
+
+-- ---------------------------------------------------------------------
+-- Q18 — Em uma única resposta: (a) CDs DISTINTOS com pelo menos um exemplar
+--       e (b) total de faixas cadastradas.
+-- Conceitos: COUNT(DISTINCT ...), COUNT(*), UNION ALL
+-- ---------------------------------------------------------------------
+SELECT 'CDs distintos com ao menos um exemplar' AS indicador,
+       COUNT(DISTINCT id_cd) AS total
+FROM exemplar
+UNION ALL
+SELECT 'Total de faixas cadastradas',
+       COUNT(*)
+FROM musica;
