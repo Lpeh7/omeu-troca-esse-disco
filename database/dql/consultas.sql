@@ -116,3 +116,51 @@ SELECT t.id_troca,
 FROM troca t
 JOIN cliente cl ON cl.id_cliente = t.id_cliente
 ORDER BY t.data_troca;
+
+
+-- =====================================================================
+-- Issue 08 — Agrupamentos e relacionamentos (Q11–Q18)
+-- =====================================================================
+
+-- ---------------------------------------------------------------------
+-- Q11 — Quantas músicas tem cada CD, do CD com mais faixas para o com menos.
+-- Conceitos: COUNT, GROUP BY, ORDER BY (LEFT JOIN mantém CDs sem músicas, com 0)
+-- ---------------------------------------------------------------------
+SELECT c.nome AS cd,
+       COUNT(m.numero_musica) AS quantidade_musicas
+FROM cd c
+LEFT JOIN musica m ON m.id_cd = c.id_cd
+GROUP BY c.id_cd, c.nome
+ORDER BY quantidade_musicas DESC, c.nome;
+
+-- ---------------------------------------------------------------------
+-- Q12 — Quantos exemplares há em cada status.
+-- Conceitos: COUNT, GROUP BY
+-- ---------------------------------------------------------------------
+SELECT status,
+       COUNT(*) AS quantidade
+FROM exemplar
+GROUP BY status
+ORDER BY quantidade DESC;
+
+-- ---------------------------------------------------------------------
+-- Q13 — Quantas músicas cada cantor tem no catálogo, do mais prolífico ao menos.
+-- Conceitos: LEFT JOIN, COUNT, GROUP BY, ORDER BY (inclui cantores com 0 músicas)
+-- ---------------------------------------------------------------------
+SELECT a.nome AS interprete,
+       COUNT(m.numero_musica) AS quantidade_musicas
+FROM cantor a
+LEFT JOIN musica m ON m.id_cantor = a.id_cantor
+GROUP BY a.id_cantor, a.nome
+ORDER BY quantidade_musicas DESC, a.nome;
+
+-- ---------------------------------------------------------------------
+-- Q14 — Duração média das músicas por gênero, só gêneros com média > 235 s.
+-- Conceitos: AVG, GROUP BY, HAVING
+-- ---------------------------------------------------------------------
+SELECT genero,
+       ROUND(AVG(tempo_segundos), 1) AS media_segundos
+FROM musica
+GROUP BY genero
+HAVING AVG(tempo_segundos) > 235
+ORDER BY media_segundos DESC;
