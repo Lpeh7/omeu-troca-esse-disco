@@ -253,3 +253,49 @@ JOIN exemplar adq    ON adq.id_exemplar = t.id_exemplar_adquirido
 JOIN cd       cd_adq ON cd_adq.id_cd    = adq.id_cd
 WHERE ROUND(adq.preco_base * (1 - t.desconto_percentual / 100), 2) > 40
 ORDER BY valor_final DESC, t.id_troca;
+
+-- =====================================================================
+-- Issue 09 (bônus) — Q24 a Q28
+-- (Q21 a Q23 são as auditorias e estão em database/dql/validacoes.sql)
+-- =====================================================================
+
+-- Q24 — Valor final médio das trocas por conservação do CD entregue.
+SELECT ent.conservacao AS conservacao_entregue,
+       COUNT(*) AS trocas,
+       ROUND(AVG(ROUND(adq.preco_base * (1 - t.desconto_percentual / 100), 2)), 2) AS valor_final_medio
+FROM troca t
+JOIN exemplar ent ON ent.id_exemplar = t.id_exemplar_entregue
+JOIN exemplar adq ON adq.id_exemplar = t.id_exemplar_adquirido
+GROUP BY ent.conservacao
+ORDER BY FIELD(ent.conservacao, 'REGULAR', 'BOM', 'OTIMO', 'NOVO');
+
+-- Q25 — Os 10 CDs com maior valor total em estoque disponível.
+SELECT c.nome AS cd,
+       COUNT(*) AS exemplares_disponiveis,
+       SUM(e.preco_base) AS valor_em_estoque
+FROM exemplar e
+JOIN cd c ON c.id_cd = e.id_cd
+WHERE e.status = 'DISPONIVEL'
+GROUP BY c.id_cd, c.nome
+ORDER BY valor_em_estoque DESC, c.nome
+LIMIT 10;
+
+-- Q26 — Clientes que nunca realizaram troca.
+SELECT cl.nome AS cliente, cl.email
+FROM cliente cl
+LEFT JOIN troca t ON t.id_cliente = cl.id_cliente
+WHERE t.id_troca IS NULL
+ORDER BY cl.nome;
+
+-- Q27 — CDs sem nenhum exemplar disponível.
+-- (a condição de status fica no ON, e não no WHERE, para não descartar os CDs sem exemplar)
+SELECT c.nome AS cd
+FROM cd c
+LEFT JOIN exemplar e ON e.id_cd = c.id_cd AND e.status = 'DISPONIVEL'
+WHERE e.id_exemplar IS NULL
+ORDER BY c.nome;
+
+-- Q28 — Total de desconto concedido pela loja em todas as trocas.
+SELECT SUM(adq.preco_base - ROUND(adq.preco_base * (1 - t.desconto_percentual / 100), 2)) AS total_desconto
+FROM troca t
+JOIN exemplar adq ON adq.id_exemplar = t.id_exemplar_adquirido;
