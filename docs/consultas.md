@@ -93,7 +93,7 @@
 **Q21** — Auditoria de desconto: listar as trocas em que o **percentual aplicado não corresponde** à conservação do CD entregue (ex.: entregue `BOM`, mas desconto diferente de 10%).
 *Conceitos: `JOIN`, `CASE`/comparação de domínio.*
 
-**Q22** — Auditoria de status (RN09): listar exemplares com **status incoerente** — por exemplo, um exemplar marcado como `TROCADO` que nunca aparece em nenhuma troca, ou um `DISPONIVEL` que participou de uma troca.
+**Q22** — Auditoria de status (RN09): listar exemplares com **status incoerente** — por exemplo, um exemplar marcado como `TROCADO` que nunca foi **adquirido** em nenhuma troca, ou um `DISPONIVEL` que foi **adquirido** em alguma troca. (Exemplares apenas **entregues** continuam `DISPONIVEL`, pois passam a integrar o estoque da loja.)
 *Conceitos: `JOIN`, `NOT EXISTS`/`LEFT JOIN ... IS NULL`.*
 
 **Q23** — Auditoria de integridade: verificar se existem **referências inválidas** (trocas apontando para cliente ou exemplares inexistentes). *Esperado: nenhum resultado, pois as FKs impedem isso.*
