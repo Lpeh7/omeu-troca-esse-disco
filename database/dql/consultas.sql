@@ -212,3 +212,44 @@ UNION ALL
 SELECT 'Total de faixas cadastradas',
        COUNT(*)
 FROM musica;
+
+
+-- =====================================================================
+-- Issue 09 — Consultas financeiras (Q19–Q20)
+-- =====================================================================
+
+-- ---------------------------------------------------------------------
+-- Q19 — Detalhe de cada troca: cliente, CD adquirido, conservação do entregue,
+--       percentual de desconto e valor final.
+-- Fórmula: valor_final = ROUND(preco_base_adquirido * (1 - desconto_percentual / 100), 2)
+-- Conceitos: JOINs (a tabela exemplar é usada duas vezes), ROUND
+-- ---------------------------------------------------------------------
+SELECT t.id_troca,
+       cl.nome AS cliente,
+       cd_adq.nome AS cd_adquirido,
+       ent.conservacao AS conservacao_entregue,
+       t.desconto_percentual,
+       adq.preco_base AS preco_base_adquirido,
+       ROUND(adq.preco_base * (1 - t.desconto_percentual / 100), 2) AS valor_final
+FROM troca t
+JOIN cliente  cl     ON cl.id_cliente   = t.id_cliente
+JOIN exemplar ent    ON ent.id_exemplar = t.id_exemplar_entregue
+JOIN exemplar adq    ON adq.id_exemplar = t.id_exemplar_adquirido
+JOIN cd       cd_adq ON cd_adq.id_cd    = adq.id_cd
+ORDER BY t.id_troca;
+
+-- ---------------------------------------------------------------------
+-- Q20 — Trocas com valor final acima de R$ 40,00, do maior para o menor.
+-- Conceitos: valor final calculado + WHERE + ORDER BY ... DESC
+-- (o apelido valor_final não pode ser usado no WHERE, então a expressão é repetida)
+-- ---------------------------------------------------------------------
+SELECT t.id_troca,
+       cl.nome AS cliente,
+       cd_adq.nome AS cd_adquirido,
+       ROUND(adq.preco_base * (1 - t.desconto_percentual / 100), 2) AS valor_final
+FROM troca t
+JOIN cliente  cl     ON cl.id_cliente   = t.id_cliente
+JOIN exemplar adq    ON adq.id_exemplar = t.id_exemplar_adquirido
+JOIN cd       cd_adq ON cd_adq.id_cd    = adq.id_cd
+WHERE ROUND(adq.preco_base * (1 - t.desconto_percentual / 100), 2) > 40
+ORDER BY valor_final DESC, t.id_troca;
