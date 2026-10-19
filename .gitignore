@@ -1,0 +1,17 @@
+# Sistema operacional
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Dumps e bancos locais (nunca versionar)
+*_dump.sql
+dump_*.sql
+*.dump
+
+# Editores
+.vscode/
+.idea/
+
+# Logs e temporários
+*.log
+*.tmp
