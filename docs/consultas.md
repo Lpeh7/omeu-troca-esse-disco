@@ -59,10 +59,10 @@
 **Q13** — Contar **quantas músicas** cada cantor tem no catálogo, listando o intérprete e a quantidade, do mais prolificista para o menos.
 *Conceitos: `JOIN`, `COUNT`, `GROUP BY`, `ORDER BY`.*
 
-**Q14** — Calcular a **duração média** das músicas por gênero, exibindo apenas os gêneros com média superior a 220 segundos.
+**Q14** — Calcular a **duração média** das músicas por gênero, exibindo apenas os gêneros com média superior a 235 segundos.
 *Conceitos: `AVG`, `GROUP BY`, `HAVING`.*
 
-**Q15** — Contar **quantos CDs** cada gravadora publicou, exibindo somente as gravadoras com mais de 10 CDs.
+**Q15** — Contar **quantos CDs** cada gravadora publicou, exibindo somente as gravadoras com mais de 40 CDs.
 *Conceitos: `COUNT`, `GROUP BY`, `HAVING`.*
 
 **Q16** — Somar o **preço-base** dos exemplares **disponíveis** por conservação (`REGULAR`, `BOM`, `OTIMO`, `NOVO`).
